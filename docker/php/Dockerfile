@@ -7,9 +7,9 @@ RUN ln -s /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /
 
 RUN apk --update upgrade && \
     apk add --update --no-cache \
-            curl openssh-client bash libzip-dev freetype-dev autoconf make g++ \
+            curl openssh-client bash libzip-dev freetype-dev autoconf make g++ libpq-dev \
     && docker-php-ext-install -j$(nproc)\
-        opcache zip
+        opcache zip pdo pdo_pgsql
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
