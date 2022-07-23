@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Check24\Assignment\Presentation\ControllerFactory;
+namespace Check24\Assignment\Infrastructure\Routing\ControllerFactory;
 
 use Check24\Assignment\Infrastructure\Routing\ControllerFactoryInterface;
 use Check24\Assignment\Presentation\Controller\HealthCheckController;
