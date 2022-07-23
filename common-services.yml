@@ -1,0 +1,14 @@
+version: '2.4'
+services:
+  nginx:
+    build:
+      context: ./docker/nginx/
+      args:
+        - TZ=${TZ}
+
+  php:
+    build:
+      context: ./docker/php/
+      args:
+        - TZ=${TZ}
+    tty: true

@@ -1,0 +1,29 @@
+version: '2.4'
+services:
+  nginx:
+    extends:
+      file: common-services.yml
+      service: nginx
+    ports:
+      - "7777:80"
+    volumes:
+      - "${PROJECT_ROOT}:/www:ro"
+    depends_on:
+      - php
+    networks:
+      check24-common:
+        aliases:
+          - localhost
+
+  php:
+    extends:
+      file: common-services.yml
+      service: php
+    volumes:
+      - "${PROJECT_ROOT}:/www:cached"
+    networks:
+      - check24-common
+
+networks:
+  check24-common:
+    external: true
