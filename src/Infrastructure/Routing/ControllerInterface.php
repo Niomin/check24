@@ -11,6 +11,7 @@ interface ControllerInterface
     /**
      * @param mixed[] $query
      * @throws AbstractHttpException
+     * TODO we should use here Request Object instead of scalar/array parameters
      */
     public function process(string $path, array $query): mixed;
 }

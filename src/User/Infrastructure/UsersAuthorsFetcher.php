@@ -23,6 +23,7 @@ final class UsersAuthorsFetcher implements UsersAuthorsFetcherInterface
         $sql = <<<sql
 SELECT u.id, u.name FROM users u
 WHERE EXISTS(SELECT id FROM articles a WHERE a.author_id = u.id)
+ORDER BY id
 sql;
 
         return new UserAuthorViewModelCollection(
