@@ -21,9 +21,31 @@ services:
       service: php
     volumes:
       - "${PROJECT_ROOT}:/www:cached"
+    depends_on:
+      - postgres
     networks:
       - check24-common
+      - check24-internal
+
+  postgres:
+    extends:
+      file: common-services.yml
+      service: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    networks:
+      - check24-internal
+
 
 networks:
   check24-common:
     external: true
+  check24-internal:
+    external: false
+
+volumes:
+  postgres_data:

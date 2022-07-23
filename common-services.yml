@@ -12,3 +12,15 @@ services:
       args:
         - TZ=${TZ}
     tty: true
+
+  postgres:
+    build:
+      context: ./docker/postgres
+      args:
+        - TZ=${TZ}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
