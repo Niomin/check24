@@ -25,14 +25,16 @@ final class Router
 
     public function dispatch(string $requestUri): void
     {
-        $exploded = explode('?', $requestUri);
-        $path     = $exploded[0];
-        $query    = $exploded[1] ?? null;
+        $exploded    = explode('?', $requestUri);
+        $path        = $exploded[0];
+        $query       = $exploded[1] ?? '';
+        $parsedQuery = $this->parseQuery($query);
+
         foreach ($this->controllerFactories as $controllerFactory) {
-            if ($controllerFactory->canProcess($path, $query)) {
+            if ($controllerFactory->canProcess($path, $parsedQuery)) {
                 $controller = $controllerFactory->create();
                 try {
-                    $data = $controller->process($path, $query);
+                    $data = $controller->process($path, $parsedQuery);
                     $code = HttpCode::HTTP_OK;
                 } catch (AbstractHttpException $e) {
                     $data = [
@@ -48,5 +50,13 @@ final class Router
         }
 
         $this->responseFormatter->error(sprintf('Path "%s" not found', $path), HttpCode::HTTP_NOT_FOUND);
+    }
+
+    private function parseQuery(string $query): array
+    {
+        $parsedQuery = [];
+        parse_str($query, $parsedQuery);
+
+        return $parsedQuery;
     }
 }

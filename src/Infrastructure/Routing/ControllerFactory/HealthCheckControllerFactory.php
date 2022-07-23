@@ -14,7 +14,7 @@ final class HealthCheckControllerFactory implements ControllerFactoryInterface
         return new HealthCheckController();
     }
 
-    public function canProcess(string $path, ?string $query): bool
+    public function canProcess(string $path, array $parsedQuery): bool
     {
         return '/' === $path;
     }

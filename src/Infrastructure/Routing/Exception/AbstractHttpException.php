@@ -6,9 +6,13 @@ namespace Check24\Assignment\Infrastructure\Routing\Exception;
 
 use Check24\Assignment\Infrastructure\Routing\HttpCode;
 use Exception;
+use RuntimeException;
 use Throwable;
 
-abstract class AbstractHttpException extends Exception
+/**
+ * RuntimeException to hide IDE unhandled exceptions warning
+ */
+abstract class AbstractHttpException extends RuntimeException
 {
 
     public function __construct(

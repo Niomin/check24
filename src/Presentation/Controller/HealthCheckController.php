@@ -12,11 +12,12 @@ final class HealthCheckController implements ControllerInterface
     /**
      * @return array{'ok': bool}
      */
-    public function process(string $path, ?string $query): array
+    public function process(string $path, array $query): array
     {
         if ('/' === $path) {
             return [
-                'ok' => true,
+                'ok'    => true,
+                'query' => $query,
             ];
         }
 

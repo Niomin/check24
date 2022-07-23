@@ -8,8 +8,9 @@ interface ControllerFactoryInterface
 {
     /**
      * FIXME here is config duplication: inside controller and inside controllerFactory
+     * @param mixed[] $parsedQuery
      */
-    public function canProcess(string $path, ?string $query): bool;
+    public function canProcess(string $path, array $parsedQuery): bool;
 
     public function create(): ControllerInterface;
 }

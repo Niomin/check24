@@ -9,7 +9,8 @@ use Check24\Assignment\Infrastructure\Routing\Exception\AbstractHttpException;
 interface ControllerInterface
 {
     /**
+     * @param mixed[] $query
      * @throws AbstractHttpException
      */
-    public function process(string $path, ?string $query): mixed;
+    public function process(string $path, array $query): mixed;
 }
