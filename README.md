@@ -15,5 +15,9 @@ bin/composer i
 ```
 bin/migrate
 ```
+5. Run phpstan (we should add it to git commit hook and to pipelines):
+```
+bin/phpstan
+```
 
 Tests information is [here](tests/README.md)

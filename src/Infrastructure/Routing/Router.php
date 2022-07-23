@@ -52,6 +52,9 @@ final class Router
         $this->responseFormatter->error(sprintf('Path "%s" not found', $path), HttpCode::HTTP_NOT_FOUND);
     }
 
+    /**
+     * @return mixed[]
+     */
     private function parseQuery(string $query): array
     {
         $parsedQuery = [];

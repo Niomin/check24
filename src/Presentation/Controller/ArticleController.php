@@ -50,7 +50,7 @@ final class ArticleController implements ControllerInterface
     private function getList(array $query): ArticleInListViewModelCollection
     {
         $lastId        = $query['lastId'] ?? null;
-        if (!is_numeric($lastId)) {
+        if ($lastId !== null && !is_numeric($lastId)) {
             throw new HttpBadRequestException('lastId should be an integer');
         }
         $lastCreatedAt = null;
