@@ -31,4 +31,35 @@ final class Connection
         }
         $this->pdo->commit();
     }
+
+    /**
+     * @param mixed[]  $parameters
+     * @return mixed[]
+     */
+    public function fetchOne(string $sql, array $parameters): ?array
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($parameters);
+
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $sql
+     * @param mixed[]  $parameters
+     * @return mixed[]
+     */
+    public function fetchAll(string $sql, array $parameters): array
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($parameters);
+
+        return $stmt->fetchAll();
+    }
 }
