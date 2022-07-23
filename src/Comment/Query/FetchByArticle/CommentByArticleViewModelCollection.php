@@ -17,11 +17,9 @@ final class CommentByArticleViewModelCollection implements JsonSerializable
     ) {
     }
 
-    /** @return mixed[] */
+    /** @return CommentByArticleViewModel[] */
     public function jsonSerialize(): array
     {
-        return [
-            'comments' => $this->comments
-        ];
+        return $this->comments;
     }
 }

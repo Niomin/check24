@@ -24,7 +24,7 @@ final class ArticleListFetcher implements ArticleListFetcherInterface
     {
         $sql   = '
 SELECT 
-    id, title, author_id, created_at, SUBSTR(text, 0, 1000)
+    id, title, author_id, created_at, SUBSTR(text, 0, 1000) as text
 FROM articles
 /* WHERE */
 ORDER BY created_at DESC, id

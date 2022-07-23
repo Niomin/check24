@@ -22,7 +22,7 @@ final class CommentsByArticleFetcher implements CommentsByArticleFetcherInterfac
 
     public function fetchByArticle(int $articleId): CommentByArticleViewModelCollection
     {
-        $sql = 'SELECT * FROM comments WHERE article_id = :articleId';
+        $sql = 'SELECT * FROM comments WHERE article_id = :articleId ORDER BY created_at desc, id desc';
         $commentsRaw = $this->connection->fetchAll($sql, ['articleId' => $articleId]);
 
         return new CommentByArticleViewModelCollection(

@@ -31,7 +31,7 @@ final class ArticleByIdFetcher implements ArticleByIdFetcherInterface
             $rawData['author_id'],
             $rawData['title'],
             $rawData['text'],
-            new DateTimeImmutable($rawData['createdAt'])
+            new DateTimeImmutable($rawData['created_at'])
         );
     }
 }

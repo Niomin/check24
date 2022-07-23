@@ -19,6 +19,7 @@ use DateTimeImmutable;
 
 use DateTimeInterface;
 
+use function is_numeric;
 use function sprintf;
 
 //TODO add information about authors, not only ids
@@ -49,6 +50,9 @@ final class ArticleController implements ControllerInterface
     private function getList(array $query): ArticleInListViewModelCollection
     {
         $lastId        = $query['lastId'] ?? null;
+        if (!is_numeric($lastId)) {
+            throw new HttpBadRequestException('lastId should be an integer');
+        }
         $lastCreatedAt = null;
         if (isset($query['lastCreatedAt'])) {
             $lastCreatedAt = DateTimeImmutable::createFromFormat(
@@ -56,7 +60,7 @@ final class ArticleController implements ControllerInterface
                 $query['lastCreatedAt']
             );
             if (false === $lastCreatedAt) {
-                throw new HttpBadRequestException('Wrong DateTime format, please, use RFC3339');
+                throw new HttpBadRequestException(sprintf('Wrong DateTime format "%s", please, use RFC3339', $query['lastCreatedAt']));
             }
         }
         if ((null === $lastId && $lastCreatedAt !== null) || (null !== $lastId && null === $lastCreatedAt)) {
@@ -67,7 +71,7 @@ final class ArticleController implements ControllerInterface
             return $this->articleListQuery->getList(null);
         }
 
-        return $this->articleListQuery->getList(new ArticleListRequest($lastCreatedAt, $lastId));
+        return $this->articleListQuery->getList(new ArticleListRequest($lastCreatedAt, (int)$lastId));
     }
 
     /**
