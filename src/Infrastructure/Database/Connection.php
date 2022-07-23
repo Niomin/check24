@@ -8,6 +8,7 @@ use Closure;
 use PDO;
 use Throwable;
 
+//TODO think of lazy connection
 final class Connection
 {
     public function __construct(
