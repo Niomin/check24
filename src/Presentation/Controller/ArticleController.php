@@ -23,7 +23,7 @@ use function sprintf;
 
 //TODO add information about authors, not only ids
 //TODO we need some functional tests
-final class ArticlesController implements ControllerInterface
+final class ArticleController implements ControllerInterface
 {
     public function __construct(
         private readonly ArticleListQuery       $articleListQuery,
