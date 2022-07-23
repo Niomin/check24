@@ -6,7 +6,7 @@ namespace Check24\Assignment\Article\Query\FetchById;
 
 use Exception;
 
-final class ArticleNotFoundException extends Exception
+final class ArticleByIdNotFoundException extends Exception
 {
 
 }

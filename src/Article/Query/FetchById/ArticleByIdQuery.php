@@ -14,13 +14,13 @@ final class ArticleByIdQuery
     }
 
     /**
-     * @throws ArticleNotFoundException
+     * @throws ArticleByIdNotFoundException
      */
     public function getById(int $id): ArticleByIdViewModel
     {
         $viewModel = $this->fetcher->fetch($id);
         if (null === $viewModel) {
-            throw new ArticleNotFoundException();
+            throw new ArticleByIdNotFoundException();
         }
 
         return $viewModel;

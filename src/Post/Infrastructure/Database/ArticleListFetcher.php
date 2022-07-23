@@ -7,6 +7,7 @@ namespace Check24\Assignment\Post\Infrastructure\Database;
 use Check24\Assignment\Article\Query\FetchList\ArticleListFetcherInterface;
 use Check24\Assignment\Article\Query\FetchList\ArticleInListViewModel;
 use Check24\Assignment\Article\Query\FetchList\ArticleInListViewModelCollection;
+use Check24\Assignment\Article\Query\FetchList\ArticleListRequest;
 use Check24\Assignment\Infrastructure\Database\Connection;
 use DateTimeImmutable;
 
@@ -19,31 +20,46 @@ final class ArticleListFetcher implements ArticleListFetcherInterface
     ) {
     }
 
-    public function fetch(DateTimeImmutable $lastCreatedAt, int $lastId): ArticleInListViewModelCollection
+    public function fetch(?ArticleListRequest $request): ArticleInListViewModelCollection
     {
-        $sql = '
+        $sql   = '
 SELECT 
     id, title, author_id, created_at, SUBSTR(text, 0, 1000)
 FROM articles
-WHERE 
-     created_at < :lastCreatedAt 
-  OR created_at = :lastCreatedAt AND 
-     id < :lastId
+/* WHERE */
+ORDER BY created_at DESC, id
+LIMIT 3
     ';
+        $binds = [];
 
-        $rawData = $this->connection->fetchAll(
-            $sql,
-            [
-                'lastCreatedAt' => $lastCreatedAt->format(DateTimeImmutable::RFC3339),
-                'lastId'        => $lastId,
-            ]
-        );
+        if (null !== $request) {
+            $sql   = $this->appendWhereCondition($sql);
+            $binds = [
+                'lastCreatedAt' => $request->getLastCreatedAt()->format(DateTimeImmutable::RFC3339),
+                'lastId'        => $request->getLastId(),
+            ];
+        }
+
+        $rawData = $this->connection->fetchAll($sql, $binds);
 
         return new ArticleInListViewModelCollection(
             array_map(
                 fn(array $raw) => $this->hydrateArticleList($raw),
                 $rawData
             )
+        );
+    }
+
+    private function appendWhereCondition(string $sql): string
+    {
+        return str_replace(
+            '/* WHERE */',
+            '
+WHERE 
+     created_at < :lastCreatedAt 
+  OR created_at = :lastCreatedAt AND 
+     id > :lastId',
+            $sql
         );
     }
 

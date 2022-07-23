@@ -18,8 +18,8 @@ final class ArticleListQuery
      * However, different articles can be created in exactly one second,
      * so I implemented an additional sorting by id here.
      */
-    public function getList(ArticleListRequest $request): ArticleInListViewModelCollection
+    public function getList(?ArticleListRequest $request): ArticleInListViewModelCollection
     {
-        return $this->fetcher->fetch($request->getLastCreatedAt(), $request->getLastId());
+        return $this->fetcher->fetch($request);
     }
 }

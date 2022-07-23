@@ -8,5 +8,5 @@ use DateTimeImmutable;
 
 interface ArticleListFetcherInterface
 {
-    public function fetch(DateTimeImmutable $lastCreatedAt, int $lastId): ArticleInListViewModelCollection;
+    public function fetch(?ArticleListRequest $request): ArticleInListViewModelCollection;
 }
