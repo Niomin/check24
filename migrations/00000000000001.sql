@@ -14,3 +14,4 @@ CREATE TABLE articles
     created_at TIMESTAMP(0) WITH TIME ZONE NOT NULL
 );
 CREATE INDEX articles_created_at_idx ON articles (created_at);
+CREATE INDEX articles_author_id_idx ON articles (author_id);

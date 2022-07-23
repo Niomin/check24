@@ -11,5 +11,9 @@ docker-compose up -d
 ```
 bin/composer i
 ```
+4. Run migrations:
+```
+bin/migrate
+```
 
 Tests information is [here](tests/README.md)
