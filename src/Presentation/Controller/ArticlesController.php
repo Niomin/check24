@@ -21,7 +21,7 @@ use DateTimeInterface;
 
 use function sprintf;
 
-//TODO add informations about authors, not only ids
+//TODO add information about authors, not only ids
 //TODO we need some functional tests
 final class ArticlesController implements ControllerInterface
 {
