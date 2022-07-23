@@ -37,6 +37,8 @@ if ([] === $queries) {
 
 $connection = (new ConnectionFactory())->create();
 $connection->transactional(function() use ($connection, $queries) {
+    //fixme it's to be able rerun migrations. We shouldn't ruin the database on every migration!
+    $connection->execute('DROP SCHEMA public CASCADE; CREATE SCHEMA public');
     foreach ($queries as $query) {
         $connection->execute($query);
     }

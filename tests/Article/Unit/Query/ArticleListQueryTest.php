@@ -13,7 +13,7 @@ use DateTimeImmutable;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * This test is useless, because class doesn't do anything.
+ * This test is useless, because the class doesn't do anything.
  * However, I can't live if I know that query/application service is not tested.
  */
 final class ArticleListQueryTest extends AbstractUnitTestCase
