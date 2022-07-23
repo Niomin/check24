@@ -11,6 +11,5 @@ CREATE TABLE articles
     author_id  INT,
     title      VARCHAR(512),
     text       TEXT,
-    created_at TIMESTAMP(0) WITH TIME ZONE NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES users (id)
+    created_at TIMESTAMP(0) WITH TIME ZONE NOT NULL
 );
